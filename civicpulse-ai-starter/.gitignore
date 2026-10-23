@@ -1,16 +1,1 @@
-.env
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-node_modules/
-dist/
-build/
-.idea/
-.vscode/
-.DS_Store
-local.db
-*.db
-*.sqlite3
-uploads/
-secrets.*
+saasaassa
