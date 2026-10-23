@@ -1,0 +1,12 @@
+{
+  "categories": [
+    {"id":"open_manhole","label":"Open manhole / uncovered drain"},
+    {"id":"pothole_road_damage","label":"Pothole / damaged road"},
+    {"id":"exposed_electrical_wire","label":"Exposed electrical wire"},
+    {"id":"waterlogging","label":"Waterlogging / flooded road"},
+    {"id":"other","label":"Other"},
+    {"id":"unknown","label":"Unable to classify"}
+  ],
+  "severity": ["critical","high","medium","low","uncertain"],
+  "status": ["NEW","UNDER_REVIEW","VERIFIED","ASSIGNED","RESOLVED","REJECTED"]
+}
