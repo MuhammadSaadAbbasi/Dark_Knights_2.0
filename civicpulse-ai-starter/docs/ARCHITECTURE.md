@@ -1,9 +1,9 @@
 # Architecture overview
 
 ```text
-Android (Kotlin/Compose) ----\
+Website user flow -----------\
                               --> FastAPI --> image validation --> AI provider adapter
-React web/admin -------------/       |                              |
+Website admin flow ----------/       |                              |
                                      v                              v
                                 SQLite/Postgres <-- validated assessment
                                      |
@@ -12,8 +12,8 @@ React web/admin -------------/       |                              |
 ```
 
 ## Responsibility split
-- Android: capture/select photo, location text, upload progress, show receipt/results.
-- Web: admin report queue, report detail, review controls, counts.
+- Website user flow: select photo, location text, upload progress, show receipt/results.
+- Website admin flow: report queue, report detail, review controls, counts.
 - API: validation, storage, report lifecycle, severity policy, authorization, AI invocation.
 - AI adapter: translate provider output into a validated `HazardAssessment`.
 - Database: report record, assessment, review changes, audit events.

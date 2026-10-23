@@ -12,4 +12,5 @@ build/
 local.db
 *.db
 *.sqlite3
+uploads/
 secrets.*

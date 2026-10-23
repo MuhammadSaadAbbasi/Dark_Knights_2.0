@@ -36,10 +36,62 @@ def initialize_database() -> None:
                 image_path TEXT NOT NULL,
                 status TEXT NOT NULL,
                 ai_status TEXT NOT NULL,
-                assessment_json TEXT
+                assessment_json TEXT,
+                verified_category TEXT,
+                verified_severity TEXT,
+                review_note TEXT,
+                reviewed_at TEXT,
+                owner_id INTEGER
             )
             """
         )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS audit_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                report_id TEXT NOT NULL,
+                actor TEXT NOT NULL,
+                action TEXT NOT NULL,
+                changes_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (report_id) REFERENCES reports(id)
+            )
+            """
+        )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                email TEXT,
+                location TEXT,
+                role TEXT NOT NULL,
+                is_active INTEGER NOT NULL DEFAULT 1,
+                created_at TEXT NOT NULL
+            )
+            """
+        )
+        columns = {
+            row["name"]
+            for row in connection.execute("PRAGMA table_info(reports)").fetchall()
+        }
+        for name, definition in {
+            "verified_category": "TEXT",
+            "verified_severity": "TEXT",
+            "review_note": "TEXT",
+            "reviewed_at": "TEXT",
+            "owner_id": "INTEGER",
+        }.items():
+            if name not in columns:
+                connection.execute(f"ALTER TABLE reports ADD COLUMN {name} {definition}")
+        user_columns = {
+            row["name"]
+            for row in connection.execute("PRAGMA table_info(users)").fetchall()
+        }
+        for name, definition in {"email": "TEXT", "location": "TEXT"}.items():
+            if name not in user_columns:
+                connection.execute(f"ALTER TABLE users ADD COLUMN {name} {definition}")
         connection.commit()
 
 
