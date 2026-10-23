@@ -30,7 +30,12 @@ uvicorn app.main:app --reload
 ```
 Open http://127.0.0.1:8000/docs
 
-This starter uses a **mock AI assessment** so the end-to-end flow can run without an API key. Replace `app/ai/provider.py` with a real provider integration only after adding your API key to `.env`. Never commit real keys.
+The API uses SQLite persistence and a **mock AI assessment** so the end-to-end flow can run without an API key. Reports remain available after an API restart. Replace `app/ai/provider.py` with a real provider integration only after adding your API key to `.env`. Never commit real keys.
+
+Run backend tests from `services/api`:
+```bash
+pytest
+```
 
 ## Run web
 ```bash
